@@ -119,16 +119,22 @@ module scenes {
                 }); 
             } 
 
-            
-          
-                //If score met go to level 1 success screen
-                //Or intermission screen
-                if(this.scoreBoard.Score === 2100){
+            //If score limit met move to lv1 intermission screen
+            if (managers.Game.scoreBoard.Score === 2100) {
 
-                    createjs.Sound.stop();
-                    managers.Game.currentScene = config.Scene.LEVEL_INTERMISSION_ONE;
-                }
+              let waitforExplosion: number = createjs.Ticker.getTicks() + 60;
+
+              
+
+                createjs.Sound.stop();
+                managers.Game.currentScene = config.Scene.LEVEL_INTERMISSION_ONE;
+              
+            }
+                
         }
+
+
+        
 
         // Button event handlers
         public Main(): void {

@@ -16,7 +16,8 @@ module managers {
 
                     if(object1.name != "plasma"){
 
-                        managers.Game.scoreBoard.Score += 50;
+                        
+                       
                         if (managers.Game.scoreBoard.HighScore <= managers.Game.scoreBoard.Score) {
                             managers.Game.scoreBoard.HighScore = managers.Game.scoreBoard.Score;
                             managers.Game.highscore = managers.Game.scoreBoard.HighScore;
@@ -30,9 +31,22 @@ module managers {
                             explosion.on("animationend", object1.Reset);
                         }
                         else {
+
+                           
                             object1.Reset();
+                                
                         }
+                        
                         object2.Reset();
+
+                        if(managers.Game.scoreBoard.Score === 2050){
+                        //Wait for explosion on final kill of level 1
+                            explosion.on("animationend", this.increaseScore);
+                        }
+
+                        else{
+                            this.increaseScore()
+                        }
 
                     } //end of if
                         break;
@@ -86,6 +100,11 @@ module managers {
                 object2.isColliding = false;
                 return false;
             }
+        }
+
+
+        public static increaseScore(){
+            managers.Game.scoreBoard.Score += 50;
         }
     }
 }
