@@ -16,8 +16,8 @@ var objects;
     var Player = /** @class */ (function (_super) {
         __extends(Player, _super);
         // Constructor
-        function Player(assetManager) {
-            var _this = _super.call(this, assetManager, "player") || this;
+        function Player() {
+            var _this = _super.call(this, "ChrisWestbrook") || this;
             _this.isDead = false;
             _this.Start();
             return _this;
@@ -30,25 +30,51 @@ var objects;
         Player.prototype.Update = function () {
             this.Move();
             this.CheckBounds();
+            this.Fire();
         };
-        Player.prototype.Reset = function () { };
+        Player.prototype.Fire = function () {
+            if (!this.isDead) {
+                // I am alive. I can shoot lasers...maybe?
+                // Gets number of ticks ticker has issued
+                var ticker = createjs.Ticker.getTicks();
+                // Constrain laser fire rate
+                if ((managers.Game.keyboardManager.shoot) && (ticker % 4 == 0)) {
+                    // Position our laser spawner
+                    this.laserSpawn = new math.Vec2(this.x, this.y - this.halfH);
+                    // IDEAL
+                    var laser = managers.Game.projectileManager.GetLaser();
+                    //let currentLaser = managers.Game.laserManager.CurrentLaser;
+                    //let laser = managers.Game.laserManager.Lasers[currentLaser];
+                    laser.x = this.laserSpawn.x;
+                    laser.y = this.laserSpawn.y;
+                    //managers.Game.laserManager.CurrentLaser++;
+                    // DON'T DO THIS IN HERE. DO IT IN THE MANAGER
+                    //if(managers.Game.laserManager.CurrentLaser > 49) {
+                    //managers.Game.laserManager.CurrentLaser = 0;
+                    //}
+                    this.shootSFX = createjs.Sound.play("playerShot");
+                    this.shootSFX.volume = 0.5;
+                }
+            }
+        };
+        Player.prototype.Reset = function () {
+            managers.Game.currentScene = config.Scene.OVER;
+        };
         Player.prototype.Move = function () {
             // We need a reference to the stage in order to get mouse position
             // this.x = objects.Game.stage.mouseX;
             // Keyboard controls
-            if (objects.Game.keyboardManager.moveLeft) {
+            if (managers.Game.keyboardManager.moveLeft) {
                 this.x -= 5;
             }
-            if (objects.Game.keyboardManager.moveRight) {
+            if (managers.Game.keyboardManager.moveRight) {
                 this.x += 5;
             }
-            if (objects.Game.keyboardManager.moveUp) {
+            if (managers.Game.keyboardManager.moveUp) {
                 this.y -= 5;
             }
-            if (objects.Game.keyboardManager.moveDown) {
+            if (managers.Game.keyboardManager.moveDown) {
                 this.y += 5;
-            }
-            if (objects.Game.keyboardManager.shoot) {
             }
         };
         Player.prototype.CheckBounds = function () {
@@ -59,6 +85,14 @@ var objects;
             // Left boundary
             if (this.x <= this.halfW) {
                 this.x = this.halfW;
+            }
+            //Top boundry
+            if (this.y >= 600 - this.halfH) {
+                this.y = 600 - this.halfH;
+            }
+            //and bottom boundry
+            if (this.y < this.halfH) {
+                this.y = this.halfH;
             }
         };
         return Player;

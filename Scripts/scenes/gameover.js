@@ -32,7 +32,7 @@ var scenes;
             this.background.Update();
         };
         GameOverScene.prototype.backButtonClick = function () {
-            objects.Game.currentScene = config.Scene.GAME;
+            managers.Game.currentScene = config.Scene.GAME;
         };
         GameOverScene.prototype.Main = function () {
             this.addChild(this.background);

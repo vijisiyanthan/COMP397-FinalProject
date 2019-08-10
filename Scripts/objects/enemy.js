@@ -16,8 +16,9 @@ var objects;
     var Enemy = /** @class */ (function (_super) {
         __extends(Enemy, _super);
         // Constructor
-        function Enemy(assetManager) {
-            var _this = _super.call(this, assetManager, "enemy") || this;
+        function Enemy() {
+            var _this = _super.call(this, "QualionFighter") || this;
+            _this.isDead = false;
             _this.Start();
             _this.boundryTouched = true;
             return _this;
@@ -25,20 +26,53 @@ var objects;
         // Methods
         Enemy.prototype.Start = function () {
             this.x = Math.floor(Math.random() * 500) + 50;
-            this.y = Math.floor(Math.random() * -800) + -50;
+            this.y = Math.floor(Math.random() * -500) + -50;
         };
         Enemy.prototype.Update = function () {
             this.Move();
             this.CheckBounds();
+            this.Fire();
         };
-        Enemy.prototype.Reset = function () { };
-        Enemy.prototype.Move = function () {
-            this.y += 5;
-            if (this.boundryTouched === false) {
-                this.x -= 3;
+        Enemy.prototype.Fire = function () {
+            if (!this.isDead) {
+                // I am alive. I can shoot lasers...maybe?
+                // Gets number of ticks ticker has issued
+                // let ticker: number = createjs.Ticker.getTicks();
+                this.shootOrNot = Math.floor(Math.random() * 500) + 50;
+                // Constrain laser fire rate
+                if ((this.shootOrNot % 200 == 0)) {
+                    // Position our laser spawner
+                    this.laserSpawn = new math.Vec2(this.x, this.y - this.halfH);
+                    // IDEAL
+                    var laser = managers.Game.EnemyProjectileManager.GetLaser();
+                    //let currentLaser = managers.Game.laserManager.CurrentLaser;
+                    //let laser = managers.Game.laserManager.Lasers[currentLaser];
+                    laser.x = this.laserSpawn.x;
+                    laser.y = this.laserSpawn.y;
+                    //managers.Game.laserManager.CurrentLaser++;
+                    // DON'T DO THIS IN HERE. DO IT IN THE MANAGER
+                    //if(managers.Game.laserManager.CurrentLaser > 49) {
+                    //managers.Game.laserManager.CurrentLaser = 0;
+                    //}
+                    this.shootingSFX = createjs.Sound.play("enemyShot");
+                    this.shootingSFX.volume = 0.5;
+                }
             }
-            else if (this.boundryTouched === true) {
-                this.x += 3;
+        };
+        Enemy.prototype.Reset = function () {
+            this.isDead = true;
+            this.x = -1000;
+            this.y = -1000;
+        };
+        Enemy.prototype.Move = function () {
+            if (this.isDead === false) {
+                this.y += 5;
+                if (this.boundryTouched === false) {
+                    this.x -= 3;
+                }
+                else if (this.boundryTouched === true) {
+                    this.x += 3;
+                }
             }
         };
         Enemy.prototype.InjuredMovement = function () {

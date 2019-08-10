@@ -16,8 +16,8 @@ var objects;
     var GameObject = /** @class */ (function (_super) {
         __extends(GameObject, _super);
         // Constructor
-        function GameObject(assetManager, imageString) {
-            var _this = _super.call(this, assetManager.getResult(imageString)) || this;
+        function GameObject(imageString) {
+            var _this = _super.call(this, managers.Game.textureAtlas, imageString) || this;
             _this.name = imageString;
             _this.Init();
             return _this;
@@ -40,7 +40,7 @@ var objects;
         GameObject.prototype.CheckBounds = function () { };
         GameObject.prototype.Move = function () { };
         return GameObject;
-    }(createjs.Bitmap));
+    }(createjs.Sprite));
     objects.GameObject = GameObject;
 })(objects || (objects = {}));
 //# sourceMappingURL=gameobject.js.map

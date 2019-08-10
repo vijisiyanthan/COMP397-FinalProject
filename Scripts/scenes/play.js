@@ -25,34 +25,75 @@ var scenes;
         PlayScene.prototype.Start = function () {
             // Initialize your variables
             this.background = new objects.Background(this.assetManager);
-            this.player = new objects.Player(this.assetManager);
+            this.bullet = new objects.Projectile();
+            this.player = new objects.Player();
+            //Player Lasers
+            this.laserManager = new managers.Projectile();
+            this.laserManager.setLoadqueue(this.assetManager);
+            //Enemy Lasers
+            this.enemyLaserManager = new managers.EnemyProjectile();
+            this.enemyLaserManager.setLoadqueue(this.assetManager);
+            //Setting projectile managers
+            managers.Game.projectileManager = this.laserManager;
+            managers.Game.EnemyProjectileManager = this.enemyLaserManager;
             this.enemies = new Array();
-            this.enemyNum = 2; // Number of enemies I want
+            this.enemyNum = 6; // Number of enemies I want
             for (var i = 0; i < this.enemyNum; i++) {
-                this.enemies[i] = new objects.Enemy(this.assetManager);
+                this.enemies[i] = new objects.Enemy();
             }
             this.scoreBoard = new managers.ScoreBoard;
-            objects.Game.scoreBoard = this.scoreBoard;
+            managers.Game.scoreBoard = this.scoreBoard;
             this.backgroundMusic = createjs.Sound.play("play_music");
             this.backgroundMusic.loop = -1; // Loop forever
             this.backgroundMusic.volume = 0.3;
-            //this.bullet = new objects.Bullet(this.assetManager);
             this.Main();
         };
         PlayScene.prototype.Update = function () {
             var _this = this;
             this.background.Update();
             this.player.Update();
+            this.laserManager.Update();
+            this.enemyLaserManager.Update();
+            //this.bullet.Update();
             // this.enemy.Update();
+            var counter;
             this.enemies.forEach(function (enemy) {
-                enemy.Update();
-                _this.player.isDead = managers.Collision.Check(_this.player, enemy);
-                if (_this.player.isDead) {
-                    // Disable Music
-                    _this.backgroundMusic.stop();
-                    objects.Game.currentScene = config.Scene.OVER;
+                if (!enemy.isDead) {
+                    enemy.Update();
+                    // Check collisions between player and enemy
+                    managers.Collision.CheckAABB(_this.player, enemy);
+                }
+                else if (enemy.isDead) {
+                    counter = counter + 1;
                 }
             });
+            //Checking player Projectile Collision
+            this.laserManager.Lasers.forEach(function (laser) {
+                _this.enemies.forEach(function (enemy) {
+                    managers.Collision.CheckAABB(laser, enemy);
+                });
+            });
+            //Checking enemy Projectile Collision with the player
+            this.enemyLaserManager.Lasers.forEach(function (laser) {
+                managers.Collision.CheckAABB(laser, _this.player);
+            });
+            // let ticker: number = createjs.Ticker.getTicks();
+            // Constrain laser fire rate
+            if (this.scoreBoard.Score % 300 == 0 && this.scoreBoard.Score != 0) {
+                this.enemies = new Array();
+                this.enemyNum = 6; // Number of enemies I want
+                for (var i = 0; i < this.enemyNum; i++) {
+                    this.enemies[i] = new objects.Enemy();
+                }
+                this.enemies.forEach(function (enemy) {
+                    _this.addChild(enemy);
+                });
+            }
+            //If score met go to level 1 success screen
+            //Or intermission screen
+            if (this.scoreBoard.Score === 2100) {
+                managers.Game.currentScene = config.Scene.LEVEL_INTERMISSION_ONE;
+            }
         };
         // Button event handlers
         PlayScene.prototype.Main = function () {
@@ -63,7 +104,12 @@ var scenes;
             this.enemies.forEach(function (enemy) {
                 _this.addChild(enemy);
             });
-            // this.addChild(this.bullet);
+            this.laserManager.Lasers.forEach(function (laser) {
+                _this.addChild(laser);
+            });
+            this.enemyLaserManager.Lasers.forEach(function (laser) {
+                _this.addChild(laser);
+            });
             this.addChild(this.scoreBoard.scoreLabel);
             this.addChild(this.scoreBoard.highScoreLabel);
         };

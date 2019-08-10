@@ -1,0 +1,55 @@
+{
+
+"images": [
+    "textureAtlas.png"
+],
+
+"framerate": 20,
+"frames": [
+    [0, 0, 50, 52, 0, 0, 0],
+    [0, 52, 34, 50, 0, 0, 0],
+    [0, 102, 50, 46, 0, 0, 0],
+    [0, 148, 64, 64, 0, 0, 0],
+    [0, 212, 64, 64, 0, 0, 0],
+    [0, 276, 64, 64, 0, 0, 0],
+    [0, 340, 64, 64, 0, 0, 0],
+    [0, 404, 64, 64, 0, 0, 0],
+    [0, 468, 64, 64, 0, 0, 0],
+    [0, 532, 32, 32, 0, 0, 0],
+    [32, 532, 17, 32, 0, 0, 0],
+    [0, 564, 30, 30, 0, 0, 0],
+    [30, 564, 30, 30, 0, 0, 0],
+    [0, 594, 30, 30, 0, 0, 0],
+    [30, 594, 30, 30, 0, 0, 0],
+    [0, 624, 50, 30, 0, 0, 0],
+    [0, 654, 34, 50, 0, 0, 0],
+    [34, 654, 30, 30, 0, 0, 0]
+],
+
+"animations": {
+    "Asteroid": { "frames": [0] },
+    "ChrisWestbrook": { "frames": [1] },
+    "eliteQualion": { "frames": [2] },
+    "explosion1": { "frames": [3] },
+    "explosion2": { "frames": [4] },
+    "explosion3": { "frames": [5] },
+    "explosion4": { "frames": [6] },
+    "explosion5": { "frames": [7] },
+    "explosion6": { "frames": [8] },
+    "eyebot": { "frames": [9] },
+    "laser": { "frames": [10] },
+    "plasma1": { "frames": [11] },
+    "plasma2": { "frames": [12] },
+    "plasma3": { "frames": [13] },
+    "plasma4": { "frames": [14] },
+    "QuadBlast": { "frames": [15] },
+    "QualionFighter": { "frames": [16] },
+    "singleshot": { "frames": [17] }
+},
+
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:111f71cc01036c0f64fc973d8f624492:a68a1c2e0dd0d2192f8c679401e4dd8e:2b5604bc88faefd55ddac16e9bce1532$",
+        "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
+]
+
+}

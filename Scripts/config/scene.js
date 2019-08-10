@@ -5,6 +5,7 @@ var config;
         Scene[Scene["START"] = 0] = "START";
         Scene[Scene["GAME"] = 1] = "GAME";
         Scene[Scene["OVER"] = 2] = "OVER";
+        Scene[Scene["LEVEL_INTERMISSION_ONE"] = 3] = "LEVEL_INTERMISSION_ONE";
     })(Scene = config.Scene || (config.Scene = {}));
 })(config || (config = {}));
 //# sourceMappingURL=scene.js.map

@@ -2,6 +2,7 @@ module config {
     export enum Scene {
         START, 
         GAME,
-        OVER
+        OVER, 
+        LEVEL_INTERMISSION_ONE
     }
 }

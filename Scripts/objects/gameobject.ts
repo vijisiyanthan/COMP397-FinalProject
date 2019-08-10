@@ -1,5 +1,5 @@
 module objects {
-    export class GameObject extends createjs.Bitmap {
+    export class GameObject extends createjs.Sprite {
         // Variables
         protected speedX: number;
         protected speedY: number;
@@ -11,15 +11,15 @@ module objects {
         public isColliding: boolean;
 
         // Constructor
-        constructor(assetManager:createjs.LoadQueue, imageString:string) {
-            super(assetManager.getResult(imageString));
+        constructor(imageString: string) {
+            super(managers.Game.textureAtlas, imageString);
 
             this.name = imageString;
 
             this.Init();
         }
         // Methods
-        private Init():void {
+        private Init(): void {
             // Initialize all the properties of my object
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -33,10 +33,10 @@ module objects {
             this.isColliding = false;
         }
 
-        public Start():void {}
-        public Update():void {}
-        public Reset():void {}
-        public CheckBounds():void {}
-        public Move():void {}
+        public Start(): void { }
+        public Update(): void { }
+        public Reset(): void { }
+        public CheckBounds(): void { }
+        public Move(): void { }
     }
 }

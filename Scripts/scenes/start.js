@@ -33,7 +33,7 @@ var scenes;
             this.background.Update();
         };
         StartScene.prototype.startButtonClick = function () {
-            objects.Game.currentScene = config.Scene.GAME;
+            managers.Game.currentScene = config.Scene.GAME;
         };
         StartScene.prototype.Main = function () {
             this.addChild(this.background);
