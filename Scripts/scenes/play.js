@@ -92,6 +92,7 @@ var scenes;
             //If score met go to level 1 success screen
             //Or intermission screen
             if (this.scoreBoard.Score === 2100) {
+                createjs.Sound.stop();
                 managers.Game.currentScene = config.Scene.LEVEL_INTERMISSION_ONE;
             }
         };

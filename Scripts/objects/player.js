@@ -38,7 +38,7 @@ var objects;
                 // Gets number of ticks ticker has issued
                 var ticker = createjs.Ticker.getTicks();
                 // Constrain laser fire rate
-                if ((managers.Game.keyboardManager.shoot) && (ticker % 4 == 0)) {
+                if ((managers.Game.keyboardManager.shoot) && (ticker % 5 == 0)) {
                     // Position our laser spawner
                     this.laserSpawn = new math.Vec2(this.x, this.y - this.halfH);
                     // IDEAL

@@ -4,6 +4,7 @@ module scenes {
         private intermissionLabel: objects.Label;
         private level2Button: objects.Button;
         private background: objects.Background;
+        private backgroundMusic: createjs.AbstractSoundInstance;
 
         // Constructor
         constructor(assetManager: createjs.LoadQueue) {
@@ -13,6 +14,12 @@ module scenes {
         // Methods
         public Start(): void {
         
+
+            this.backgroundMusic = createjs.Sound.play("lv2_Music");
+            this.backgroundMusic.loop = -1; // Loop forever
+            this.backgroundMusic.volume = 0.3;
+          
+
             this.intermissionLabel = new objects.Label("Mission Complete!", "40px", "Consolas", "#008B8B", 320, 240, true);
 
             this.background = new objects.Background(this.assetManager);

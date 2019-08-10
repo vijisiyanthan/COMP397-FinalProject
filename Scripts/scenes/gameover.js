@@ -18,6 +18,7 @@ var scenes;
         // Constructors
         function GameOverScene(assetManager) {
             var _this = _super.call(this, assetManager) || this;
+            createjs.Sound.stop();
             _this.Start();
             return _this;
         }

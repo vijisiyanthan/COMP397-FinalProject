@@ -39,8 +39,8 @@ var managers;
                             managers.Game.currentSceneObject.addChild(explosion);
                             managers.Game.currentSceneObject.removeChild(object1);
                             managers.Game.currentSceneObject.removeChild(object2);
-                            explosion.on("animationend", object1.Reset);
-                            object2.Reset();
+                            explosion.on("animationend", object2.Reset);
+                            object1.Reset();
                         }
                         break; //end of checking for enemy projectiles
                 }

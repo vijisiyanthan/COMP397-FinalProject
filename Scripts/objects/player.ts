@@ -32,7 +32,7 @@ module objects {
         let ticker: number = createjs.Ticker.getTicks();
 
         // Constrain laser fire rate
-        if ((managers.Game.keyboardManager.shoot) && (ticker % 4 == 0)) {
+        if ((managers.Game.keyboardManager.shoot) && (ticker % 5 == 0)) {
           // Position our laser spawner
           this.laserSpawn = new math.Vec2(this.x, this.y - this.halfH);
 
@@ -50,7 +50,6 @@ module objects {
           //if(managers.Game.laserManager.CurrentLaser > 49) {
           //managers.Game.laserManager.CurrentLaser = 0;
           //}
-
 
           this.shootSFX = createjs.Sound.play("playerShot");
           this.shootSFX.volume = 0.5;

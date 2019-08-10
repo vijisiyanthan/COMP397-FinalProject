@@ -21,14 +21,14 @@ module managers {
         public GetLaser(): objects.Projectile {
             let laser: objects.Projectile = this.Lasers[this.CurrentLaser];
             this.CurrentLaser++;
-            if (managers.Game.projectileManager.CurrentLaser > 49) {
+            if (managers.Game.projectileManager.CurrentLaser > 99) {
                 managers.Game.projectileManager.CurrentLaser = 0;
             }
 
             return laser;
         }
         public Start(): void {
-            this.laserCount = 50;
+            this.laserCount = 100;
             this.Lasers = new Array<objects.Projectile>();
             this.buildLaserPool();
             this.CurrentLaser = 0;

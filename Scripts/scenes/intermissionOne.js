@@ -23,6 +23,9 @@ var scenes;
         }
         // Methods
         Intermission_One_Scene.prototype.Start = function () {
+            this.backgroundMusic = createjs.Sound.play("lv2_Music");
+            this.backgroundMusic.loop = -1; // Loop forever
+            this.backgroundMusic.volume = 0.3;
             this.intermissionLabel = new objects.Label("Mission Complete!", "40px", "Consolas", "#008B8B", 320, 240, true);
             this.background = new objects.Background(this.assetManager);
             this.level2Button = new objects.Button(this.assetManager, "int_One_Button", 100, 300);

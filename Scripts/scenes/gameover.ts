@@ -10,6 +10,7 @@ module scenes {
         constructor(assetManager: createjs.LoadQueue) {
             super(assetManager);
 
+            createjs.Sound.stop();
             this.Start();
         }
         // Methods

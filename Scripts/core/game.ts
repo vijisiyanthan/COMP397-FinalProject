@@ -87,6 +87,7 @@
         {id: "explode", src:"./Assets/Audio/PlayerExplodes.mp3"},
         { id: "playerShot", src: "./Assets/Audio/PlayerShot.mp3" },
         { id: "enemyShot", src: "./Assets/Audio/PlasmaSound.wav" },
+        { id: "lv2_Music", src: "./Assets/Audio/Level2Music.mp3" },
         {id: "play_music", src:"./Assets/Audio/StarMusic.wav"} 
        
     ];

@@ -125,7 +125,7 @@ module scenes {
                 //Or intermission screen
                 if(this.scoreBoard.Score === 2100){
 
-                   
+                    createjs.Sound.stop();
                     managers.Game.currentScene = config.Scene.LEVEL_INTERMISSION_ONE;
                 }
         }
