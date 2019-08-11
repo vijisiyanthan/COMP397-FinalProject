@@ -124,7 +124,9 @@ module objects {
         public CheckBounds():void {
             // Check the bottom boundary
             if(this.y >= 600 + this.height) {
-                this.y = -50;
+                //this.y = -50; default 
+
+                this.isDead = true;
             }
 
 

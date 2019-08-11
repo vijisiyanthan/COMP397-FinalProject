@@ -96,7 +96,8 @@ var objects;
         Enemy.prototype.CheckBounds = function () {
             // Check the bottom boundary
             if (this.y >= 600 + this.height) {
-                this.y = -50;
+                //this.y = -50; default 
+                this.isDead = true;
             }
             //Check walls and set movement pattern
             if (this.x >= 500 + this.width) {

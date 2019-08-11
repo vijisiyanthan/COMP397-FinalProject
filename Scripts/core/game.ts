@@ -82,6 +82,7 @@
         {id: "nextButton", src:"./Assets/NextButton.png"},
         {id: "tryAgain", src:"./Assets/TryAgain.png"},
         { id: "int_One_Button", src: "./Assets/Intermission_One_Button.png" },
+        { id: "int_Two_Button", src: "./Assets/Intermission_2_Button.png" },
         {id: "failedLogo", src:"./Assets/FailedLogo.png"},
         {id: "background", src:"./Assets/QualionOrbitBG.png"},
         {id: "explode", src:"./Assets/Audio/PlayerExplodes.mp3"},
@@ -177,6 +178,12 @@
             currentScene = new scenes.AsteroidScene(assetManager);
             stage.addChild(currentScene);
             break;
+
+            case config.Scene.LEVEL_INTERMISSION_TWO:
+                stage.removeAllChildren();
+                currentScene = new scenes.Intermission_Two_Scene(assetManager);
+                stage.addChild(currentScene);
+                break;
         }
         currentState = managers.Game.currentScene;
         managers.Game.currentSceneObject = currentScene;

@@ -37,15 +37,24 @@ var scenes;
             managers.Game.projectileManager = this.laserManager;
             managers.Game.EnemyProjectileManager = this.enemyLaserManager;
             this.enemies = new Array();
-            this.enemyNum = 6; // Number of enemies I want
+            this.enemyNum = 3; // Number of enemies I want
             for (var i = 0; i < this.enemyNum; i++) {
                 this.enemies[i] = new objects.Enemy();
             }
+            this.enemies2 = new Array();
+            this.enemyNum2 = 3; // Number of enemies I want
+            for (var i = 0; i < this.enemyNum2; i++) {
+                this.enemies2[i] = new objects.Enemy();
+            }
             this.scoreBoard = new managers.ScoreBoard;
             managers.Game.scoreBoard = this.scoreBoard;
+            this.scoreBoard.Objective = "Score 3000 Points";
             this.backgroundMusic = createjs.Sound.play("play_music");
             this.backgroundMusic.loop = -1; // Loop forever
             this.backgroundMusic.volume = 0.3;
+            //initializing enemy counter
+            this.enemyCounter = 0;
+            this.enemyCounter2 = 0;
             this.Main();
         };
         PlayScene.prototype.Update = function () {
@@ -54,22 +63,63 @@ var scenes;
             this.player.Update();
             this.laserManager.Update();
             this.enemyLaserManager.Update();
-            //this.bullet.Update();
-            // this.enemy.Update();
-            var counter;
+            //Updating enemies array 1
             this.enemies.forEach(function (enemy) {
                 if (!enemy.isDead) {
                     enemy.Update();
                     // Check collisions between player and enemy
                     managers.Collision.CheckAABB(_this.player, enemy);
                 }
-                else if (enemy.isDead) {
-                    counter = counter + 1;
+                else if (enemy.isDead && enemy.alreadyCounted === false) {
+                    _this.enemyCounter++;
+                    enemy.setAsCounted();
+                }
+                // repopulating enemies if they are all deceased
+                if (_this.enemyCounter === 3) {
+                    _this.enemies = new Array();
+                    _this.enemyNum = 3; // Number of enemies I want
+                    for (var i = 0; i < _this.enemyNum; i++) {
+                        _this.enemies[i] = new objects.Enemy();
+                    }
+                    _this.enemies.forEach(function (enemy) {
+                        _this.addChild(enemy);
+                    });
+                    _this.enemyCounter = 0;
                 }
             });
-            //Checking player Projectile Collision
+            //updating enemies array 2
+            this.enemies2.forEach(function (enemy) {
+                if (!enemy.isDead) {
+                    enemy.Update();
+                    // Check collisions between player and enemy
+                    managers.Collision.CheckAABB(_this.player, enemy);
+                }
+                else if (enemy.isDead && enemy.alreadyCounted === false) {
+                    _this.enemyCounter2++;
+                    enemy.setAsCounted();
+                }
+                // repopulating enemies if they are all deceased
+                if (_this.enemyCounter2 === 3) {
+                    _this.enemies2 = new Array();
+                    _this.enemyNum2 = 3; // Number of enemies I want
+                    for (var i = 0; i < _this.enemyNum2; i++) {
+                        _this.enemies2[i] = new objects.Enemy();
+                    }
+                    _this.enemies2.forEach(function (enemy) {
+                        _this.addChild(enemy);
+                    });
+                    _this.enemyCounter2 = 0;
+                }
+            });
+            //Checking player Projectile Collision for enemy array 1
             this.laserManager.Lasers.forEach(function (laser) {
                 _this.enemies.forEach(function (enemy) {
+                    managers.Collision.CheckAABB(laser, enemy);
+                });
+            });
+            //Checking player Projectile Collision for enemy array 2
+            this.laserManager.Lasers.forEach(function (laser) {
+                _this.enemies2.forEach(function (enemy) {
                     managers.Collision.CheckAABB(laser, enemy);
                 });
             });
@@ -78,20 +128,21 @@ var scenes;
                 managers.Collision.CheckAABB(laser, _this.player);
             });
             // let ticker: number = createjs.Ticker.getTicks();
-            // Constrain laser fire rate
-            if (this.scoreBoard.Score % 300 == 0 && this.scoreBoard.Score != 0) {
-                this.enemies = new Array();
-                this.enemyNum = 6; // Number of enemies I want
-                for (var i = 0; i < this.enemyNum; i++) {
-                    this.enemies[i] = new objects.Enemy();
-                }
-                this.enemies.forEach(function (enemy) {
-                    _this.addChild(enemy);
-                });
-            }
+            // Old spawn method
+            /* if (this.scoreBoard.Score % 300 == 0 && this.scoreBoard.Score != 0) {
+                 this.enemies = new Array<objects.Enemy>();
+                 this.enemyNum = 6; // Number of enemies I want
+                 for (let i = 0; i < this.enemyNum; i++) {
+                     this.enemies[i] = new objects.Enemy();
+                 }
+ 
+ 
+                 this.enemies.forEach(enemy => {
+                     this.addChild(enemy);
+                 });
+             } */
             //If score limit met move to lv1 intermission screen
-            if (managers.Game.scoreBoard.Score === 2100) {
-                var waitforExplosion = createjs.Ticker.getTicks() + 60;
+            if (managers.Game.scoreBoard.Score >= 3000) {
                 createjs.Sound.stop();
                 managers.Game.currentScene = config.Scene.LEVEL_INTERMISSION_ONE;
             }
@@ -105,6 +156,9 @@ var scenes;
             this.enemies.forEach(function (enemy) {
                 _this.addChild(enemy);
             });
+            this.enemies2.forEach(function (enemy) {
+                _this.addChild(enemy);
+            });
             this.laserManager.Lasers.forEach(function (laser) {
                 _this.addChild(laser);
             });
@@ -113,6 +167,7 @@ var scenes;
             });
             this.addChild(this.scoreBoard.scoreLabel);
             this.addChild(this.scoreBoard.highScoreLabel);
+            this.addChild(this.scoreBoard.objectiveLabel);
         };
         return PlayScene;
     }(objects.Scene));

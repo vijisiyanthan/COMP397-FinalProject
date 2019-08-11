@@ -5,11 +5,15 @@ module scenes {
         private player:objects.Player;
         private enemies:objects.Enemy[];
         private enemyNum:number;
+        private enemies2: objects.Enemy[];
+        private enemyNum2: number;
         private scoreBoard:managers.ScoreBoard;
         private bullet:objects.Projectile;
         private laserManager: managers.Projectile;
         private enemyLaserManager: managers.EnemyProjectile;
         private backgroundMusic: createjs.AbstractSoundInstance;
+        private enemyCounter: number;
+        private enemyCounter2: number;
 
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
@@ -37,13 +41,21 @@ module scenes {
             managers.Game.EnemyProjectileManager = this.enemyLaserManager;
 
             this.enemies = new Array<objects.Enemy>();
-            this.enemyNum = 6; // Number of enemies I want
+            this.enemyNum = 3; // Number of enemies I want
             for (let i = 0; i < this.enemyNum; i++) {
                 this.enemies[i] = new objects.Enemy();
             }
 
+
+            this.enemies2 = new Array<objects.Enemy>();
+            this.enemyNum2 = 3; // Number of enemies I want
+            for (let i = 0; i < this.enemyNum2; i++) {
+                this.enemies2[i] = new objects.Enemy();
+            }
+
             this.scoreBoard = new managers.ScoreBoard;
             managers.Game.scoreBoard = this.scoreBoard;
+            this.scoreBoard.Objective = "Score 3000 Points"
 
            
             
@@ -51,6 +63,9 @@ module scenes {
             this.backgroundMusic.loop = -1; // Loop forever
             this.backgroundMusic.volume = 0.3;
         
+            //initializing enemy counter
+            this.enemyCounter = 0;
+            this.enemyCounter2 = 0;
         
 
             this.Main();
@@ -61,12 +76,11 @@ module scenes {
             this.player.Update();
             this.laserManager.Update();
             this.enemyLaserManager.Update();
-            //this.bullet.Update();
-            // this.enemy.Update();
+           
 
-            let counter: number;
+           
 
-
+            //Updating enemies array 1
             this.enemies.forEach(enemy => {
                 if (!enemy.isDead) {
                     enemy.Update();
@@ -77,15 +91,89 @@ module scenes {
 
                 }
 
-                else if (enemy.isDead) {
-                    counter = counter + 1;
+               
+
+
+                else if (enemy.isDead && enemy.alreadyCounted === false) {
+                    this.enemyCounter++;
+                    enemy.setAsCounted();
+                }
+
+
+
+
+                // repopulating enemies if they are all deceased
+                if (this.enemyCounter === 3) {
+                    this.enemies = new Array<objects.Enemy>();
+                    this.enemyNum = 3; // Number of enemies I want
+                    for (let i = 0; i < this.enemyNum; i++) {
+                        this.enemies[i] = new objects.Enemy();
+                    }
+
+
+                    this.enemies.forEach(enemy => {
+                        this.addChild(enemy);
+                    });
+
+                    this.enemyCounter = 0;
+                
                 }
             });
 
 
-            //Checking player Projectile Collision
+
+
+        //updating enemies array 2
+            this.enemies2.forEach(enemy => {
+                if (!enemy.isDead) {
+                    enemy.Update();
+
+
+                    // Check collisions between player and enemy
+                    managers.Collision.CheckAABB(this.player, enemy);
+
+                }
+
+
+
+
+                else if (enemy.isDead && enemy.alreadyCounted === false) {
+                    this.enemyCounter2++;
+                    enemy.setAsCounted();
+                }
+
+
+
+
+                // repopulating enemies if they are all deceased
+                if (this.enemyCounter2 === 3) {
+                    this.enemies2 = new Array<objects.Enemy>();
+                    this.enemyNum2 = 3; // Number of enemies I want
+                    for (let i = 0; i < this.enemyNum2; i++) {
+                        this.enemies2[i] = new objects.Enemy();
+                    }
+
+
+                    this.enemies2.forEach(enemy => {
+                        this.addChild(enemy);
+                    });
+
+                    this.enemyCounter2 = 0;
+
+                }
+            });
+
+
+            //Checking player Projectile Collision for enemy array 1
             this.laserManager.Lasers.forEach(laser => {
                 this.enemies.forEach(enemy => {
+                    managers.Collision.CheckAABB(laser, enemy);
+                });
+            });
+
+            //Checking player Projectile Collision for enemy array 2
+            this.laserManager.Lasers.forEach(laser => {
+                this.enemies2.forEach(enemy => {
                     managers.Collision.CheckAABB(laser, enemy);
                 });
             });
@@ -105,8 +193,8 @@ module scenes {
 
         
             
-            // Constrain laser fire rate
-            if (this.scoreBoard.Score % 300 == 0 && this.scoreBoard.Score != 0) {
+            // Old spawn method
+           /* if (this.scoreBoard.Score % 300 == 0 && this.scoreBoard.Score != 0) {
                 this.enemies = new Array<objects.Enemy>();
                 this.enemyNum = 6; // Number of enemies I want
                 for (let i = 0; i < this.enemyNum; i++) {
@@ -117,12 +205,14 @@ module scenes {
                 this.enemies.forEach(enemy => {
                     this.addChild(enemy);
                 }); 
-            } 
+            } */
+
+
 
             //If score limit met move to lv1 intermission screen
-            if (managers.Game.scoreBoard.Score === 2100) {
+            if (managers.Game.scoreBoard.Score >= 3000) {
 
-              let waitforExplosion: number = createjs.Ticker.getTicks() + 60;
+             
 
               
 
@@ -148,6 +238,11 @@ module scenes {
             });
 
 
+            this.enemies2.forEach(enemy => {
+                this.addChild(enemy);
+            });
+
+
         
             this.laserManager.Lasers.forEach(laser => {
                 this.addChild(laser);
@@ -161,6 +256,7 @@ module scenes {
 
             this.addChild(this.scoreBoard.scoreLabel);
             this.addChild(this.scoreBoard.highScoreLabel);
+            this.addChild(this.scoreBoard.objectiveLabel);
         }
     }
 }

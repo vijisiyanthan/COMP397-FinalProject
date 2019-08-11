@@ -63,6 +63,7 @@ var scenes;
             }
             this.scoreBoard = new managers.ScoreBoard;
             managers.Game.scoreBoard = this.scoreBoard;
+            this.scoreBoard.Objective = "Score 8000 Points";
             //Creating initial enemy counter count
             this.asteroidCounter = 0;
             this.asteroidCounter2 = 0;
@@ -200,8 +201,7 @@ var scenes;
             });
             //If score limit met move to lv2 intermission screen
             if (managers.Game.scoreBoard.Score > 8000) {
-                createjs.Sound.stop();
-                managers.Game.currentScene = config.Scene.LEVEL_INTERMISSION_ONE;
+                managers.Game.currentScene = config.Scene.LEVEL_INTERMISSION_TWO;
             }
         };
         // Button event handlers
@@ -229,6 +229,7 @@ var scenes;
             });
             this.addChild(this.scoreBoard.scoreLabel);
             this.addChild(this.scoreBoard.highScoreLabel);
+            this.addChild(this.scoreBoard.objectiveLabel);
         };
         return AsteroidScene;
     }(objects.Scene));

@@ -79,6 +79,7 @@ module scenes {
 
             this.scoreBoard = new managers.ScoreBoard;
             managers.Game.scoreBoard = this.scoreBoard;
+            this.scoreBoard.Objective = "Score 8000 Points"
 
 
             //Creating initial enemy counter count
@@ -310,8 +311,8 @@ module scenes {
 
 
 
-                createjs.Sound.stop();
-                managers.Game.currentScene = config.Scene.LEVEL_INTERMISSION_ONE;
+                
+                managers.Game.currentScene = config.Scene.LEVEL_INTERMISSION_TWO;
 
             }
 
@@ -356,6 +357,7 @@ module scenes {
 
             this.addChild(this.scoreBoard.scoreLabel);
             this.addChild(this.scoreBoard.highScoreLabel);
+            this.addChild(this.scoreBoard.objectiveLabel);
         }
     }
 }

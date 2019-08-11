@@ -27,12 +27,25 @@ var managers;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(ScoreBoard.prototype, "Objective", {
+            get: function () {
+                return this.objective;
+            },
+            set: function (newObjective) {
+                this.objective = newObjective;
+                this.objectiveLabel.text = "Objective: " + this.objective;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // Methods
         ScoreBoard.prototype.Init = function () {
-            this.scoreLabel = new objects.Label("Score: 9999999", "20px", "Consolas", "#FFFF00", 10, 10, false);
-            this.highScoreLabel = new objects.Label("High Score: ", "20px", "Consolas", "#FFFF00", 450, 10, false);
+            this.scoreLabel = new objects.Label("Score: 9999999", "25px", "Consolas", "#00B8B8", 10, 10, false);
+            this.highScoreLabel = new objects.Label("High Score: ", "25px", "Consolas", "#00B8B8", 350, 10, false);
+            this.objectiveLabel = new objects.Label("Objective: " + this.objective, "16px", "Consolas", "#00B8B8", 180, 580, false);
             this.Score = 0;
             this.HighScore = 0;
+            this.objective = " ";
         };
         return ScoreBoard;
     }());
