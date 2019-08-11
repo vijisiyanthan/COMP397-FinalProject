@@ -9,6 +9,7 @@ module objects {
         public halfW: number;   // Half-width; Useful for collision detection
         public halfH: number;   // Half-height
         public isColliding: boolean;
+        public HP: number; // HP value needed for some elements in the game
 
         // Constructor
         constructor(imageString: string) {
@@ -25,6 +26,7 @@ module objects {
             this.height = this.getBounds().height;
             this.halfW = this.width * 0.5;
             this.halfH = this.height * 0.5;
+            this.HP = 0;
 
             // Registration Points
             this.regX = this.halfW;

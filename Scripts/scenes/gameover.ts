@@ -4,6 +4,7 @@ module scenes {
         private gameOverLabel: objects.Button;
         private backButton: objects.Button;
         private background: objects.Background;
+        private backgroundMusic: createjs.AbstractSoundInstance;
 
 
         // Constructors
@@ -15,7 +16,7 @@ module scenes {
         }
         // Methods
         public Start():void {
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background(this.assetManager, "background");
             this.gameOverLabel = new objects.Button(this.assetManager, "failedLogo", 150, 200);
             this.backButton = new objects.Button(this.assetManager, "tryAgain", 200, 340);
             this.Main();
@@ -26,7 +27,18 @@ module scenes {
         }
 
         private backButtonClick():void {
+            
+            if(managers.Game.stageCheckpoint === 1){
             managers.Game.currentScene = config.Scene.GAME;
+        } 
+
+            else if (managers.Game.stageCheckpoint === 2) {
+
+                this.backgroundMusic = createjs.Sound.play("lv2_Music");
+                this.backgroundMusic.loop = -1; // Loop forever
+                this.backgroundMusic.volume = 0.3;
+                managers.Game.currentScene = config.Scene.LEVEL_2;
+            }
         }
 
         public Main():void {

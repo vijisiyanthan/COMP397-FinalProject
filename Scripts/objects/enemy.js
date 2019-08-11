@@ -15,12 +15,14 @@ var objects;
 (function (objects) {
     var Enemy = /** @class */ (function (_super) {
         __extends(Enemy, _super);
+        //Ensures that they are not double counted;
         // Constructor
         function Enemy() {
             var _this = _super.call(this, "QualionFighter") || this;
             _this.isDead = false;
             _this.Start();
             _this.boundryTouched = true;
+            _this.alreadyCounted = false;
             return _this;
         }
         // Methods
@@ -93,10 +95,10 @@ var objects;
         };
         Enemy.prototype.CheckBounds = function () {
             // Check the bottom boundary
-            if (this.y >= 800 + this.height) {
+            if (this.y >= 600 + this.height) {
                 this.y = -50;
             }
-            //Check walls
+            //Check walls and set movement pattern
             if (this.x >= 500 + this.width) {
                 this.x = this.x - 50;
                 this.boundryTouched = false;
@@ -105,6 +107,10 @@ var objects;
                 this.x = this.x + 50;
                 this.boundryTouched = true;
             }
+        };
+        //sets the enemy as counted for in game counters
+        Enemy.prototype.setAsCounted = function () {
+            this.alreadyCounted = true;
         };
         return Enemy;
     }(objects.GameObject));

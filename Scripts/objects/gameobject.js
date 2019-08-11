@@ -29,6 +29,7 @@ var objects;
             this.height = this.getBounds().height;
             this.halfW = this.width * 0.5;
             this.halfH = this.height * 0.5;
+            this.HP = 0;
             // Registration Points
             this.regX = this.halfW;
             this.regY = this.halfH;

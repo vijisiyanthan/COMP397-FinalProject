@@ -22,7 +22,7 @@ module scenes {
 
             this.intermissionLabel = new objects.Label("Mission Complete!", "40px", "Consolas", "#008B8B", 320, 240, true);
 
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background(this.assetManager, "background");
             this.level2Button = new objects.Button(this.assetManager, "int_One_Button", 100, 300);
             this.Main();
         }
@@ -33,7 +33,8 @@ module scenes {
         }
 
         private startButtonClick(): void {
-            managers.Game.currentScene = config.Scene.GAME;
+            managers.Game.stageCheckpoint = 2;
+            managers.Game.currentScene = config.Scene.LEVEL_2;
         }
 
         public Main(): void {

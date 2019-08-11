@@ -7,12 +7,15 @@ module objects {
         private laserSpawn: math.Vec2;
         private shootOrNot: number;
         private shootingSFX: createjs.AbstractSoundInstance;
+        public alreadyCounted: boolean; //used by in game enemy counter variables for spawning purposes. 
+                                        //Ensures that they are not double counted;
 
         // Constructor
         constructor() {
             super("QualionFighter");
             this.Start(); 
             this.boundryTouched = true;
+            this.alreadyCounted = false;
         }
         // Methods
         public Start():void {
@@ -76,6 +79,7 @@ module objects {
              
             if(this.isDead === false){
             this.y += 5;
+            
 
             if(this.boundryTouched === false){
             this.x -= 3;
@@ -119,12 +123,12 @@ module objects {
 
         public CheckBounds():void {
             // Check the bottom boundary
-            if(this.y >= 800 + this.height) {
+            if(this.y >= 600 + this.height) {
                 this.y = -50;
             }
 
 
-            //Check walls
+            //Check walls and set movement pattern
             if (this.x >= 500 + this.width) {
 
                 this.x = this.x - 50;
@@ -136,6 +140,12 @@ module objects {
                 this.x = this.x + 50;
                 this.boundryTouched = true;
             } 
+        }
+
+        //sets the enemy as counted for in game counters
+        public setAsCounted(): void{
+
+            this.alreadyCounted = true;
         }
 
       

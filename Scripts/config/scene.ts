@@ -3,6 +3,7 @@ module config {
         START, 
         GAME,
         OVER, 
-        LEVEL_INTERMISSION_ONE
+        LEVEL_INTERMISSION_ONE,
+        LEVEL_2
     }
 }

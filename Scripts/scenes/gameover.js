@@ -24,7 +24,7 @@ var scenes;
         }
         // Methods
         GameOverScene.prototype.Start = function () {
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background(this.assetManager, "background");
             this.gameOverLabel = new objects.Button(this.assetManager, "failedLogo", 150, 200);
             this.backButton = new objects.Button(this.assetManager, "tryAgain", 200, 340);
             this.Main();
@@ -33,7 +33,15 @@ var scenes;
             this.background.Update();
         };
         GameOverScene.prototype.backButtonClick = function () {
-            managers.Game.currentScene = config.Scene.GAME;
+            if (managers.Game.stageCheckpoint === 1) {
+                managers.Game.currentScene = config.Scene.GAME;
+            }
+            else if (managers.Game.stageCheckpoint === 2) {
+                this.backgroundMusic = createjs.Sound.play("lv2_Music");
+                this.backgroundMusic.loop = -1; // Loop forever
+                this.backgroundMusic.volume = 0.3;
+                managers.Game.currentScene = config.Scene.LEVEL_2;
+            }
         };
         GameOverScene.prototype.Main = function () {
             this.addChild(this.background);

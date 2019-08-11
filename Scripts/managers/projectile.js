@@ -15,13 +15,13 @@ var managers;
         Projectile.prototype.GetLaser = function () {
             var laser = this.Lasers[this.CurrentLaser];
             this.CurrentLaser++;
-            if (managers.Game.projectileManager.CurrentLaser > 99) {
+            if (managers.Game.projectileManager.CurrentLaser > 999) {
                 managers.Game.projectileManager.CurrentLaser = 0;
             }
             return laser;
         };
         Projectile.prototype.Start = function () {
-            this.laserCount = 100;
+            this.laserCount = 1000;
             this.Lasers = new Array();
             this.buildLaserPool();
             this.CurrentLaser = 0;

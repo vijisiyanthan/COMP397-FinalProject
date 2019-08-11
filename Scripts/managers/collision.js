@@ -49,6 +49,38 @@ var managers;
                             object1.Reset();
                         }
                         break; //end of checking for enemy projectiles
+                    case "Asteroid":
+                        if (object1.name != "plasma" && object1.name != "QualionFighter") {
+                            if (object2.HP === 0) {
+                                if (managers.Game.scoreBoard.HighScore <= managers.Game.scoreBoard.Score) {
+                                    managers.Game.scoreBoard.HighScore = managers.Game.scoreBoard.Score;
+                                    managers.Game.highscore = managers.Game.scoreBoard.HighScore;
+                                }
+                                var explosion = new objects.Explosion(object2.x - object2.halfW, object2.y - object2.halfH);
+                                managers.Game.currentSceneObject.addChild(explosion);
+                                managers.Game.currentSceneObject.removeChild(object1);
+                                managers.Game.currentSceneObject.removeChild(object2);
+                                if (object1.name === "ChrisWestbrook") {
+                                    explosion.on("animationend", object1.Reset);
+                                }
+                                else {
+                                    object1.Reset();
+                                }
+                                object2.Reset();
+                                if (managers.Game.scoreBoard.Score === 4050) {
+                                    //Wait for explosion on final kill of level 1
+                                    explosion.on("animationend", this.increaseScore);
+                                }
+                                else {
+                                    this.increaseScore();
+                                }
+                            } //end of if hp === 0 if statement
+                            //If hp is not equal to zero subtract a hit point
+                            else {
+                                object2.HP = object2.HP - 1;
+                            }
+                        } //end of asteroid switch statement
+                        break;
                 }
             }
         };

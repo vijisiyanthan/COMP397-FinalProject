@@ -24,7 +24,7 @@ var scenes;
         // Methods
         StartScene.prototype.Start = function () {
             // this.welcomeLabel = new objects.Label("Welcome!", "60px", "Consolas", "#000000", 320, 240, true);
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background(this.assetManager, "background");
             this.startLogo = new objects.Button(this.assetManager, "startLogo", 100, 100);
             this.startButton = new objects.Button(this.assetManager, "startButton", 200, 300);
             this.Main();
@@ -33,6 +33,7 @@ var scenes;
             this.background.Update();
         };
         StartScene.prototype.startButtonClick = function () {
+            managers.Game.stageCheckpoint = 1;
             managers.Game.currentScene = config.Scene.GAME;
         };
         StartScene.prototype.Main = function () {

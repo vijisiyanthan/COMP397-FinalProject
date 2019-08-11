@@ -20,7 +20,7 @@ module scenes {
         // Methods
         public Start(): void {
             // Initialize your variables
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background(this.assetManager, "background");
             this.bullet = new objects.Projectile();
             this.player = new objects.Player();
 

@@ -13,7 +13,7 @@ module objects {
     }
     // Methods
     public Start(): void {
-      this.y = 800;
+      this.y = 800; 
       this.x = 300;
     }
 

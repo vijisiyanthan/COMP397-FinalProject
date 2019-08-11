@@ -27,7 +27,7 @@ var scenes;
             this.backgroundMusic.loop = -1; // Loop forever
             this.backgroundMusic.volume = 0.3;
             this.intermissionLabel = new objects.Label("Mission Complete!", "40px", "Consolas", "#008B8B", 320, 240, true);
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background(this.assetManager, "background");
             this.level2Button = new objects.Button(this.assetManager, "int_One_Button", 100, 300);
             this.Main();
         };
@@ -35,7 +35,8 @@ var scenes;
             this.background.Update();
         };
         Intermission_One_Scene.prototype.startButtonClick = function () {
-            managers.Game.currentScene = config.Scene.GAME;
+            managers.Game.stageCheckpoint = 2;
+            managers.Game.currentScene = config.Scene.LEVEL_2;
         };
         Intermission_One_Scene.prototype.Main = function () {
             this.addChild(this.background);

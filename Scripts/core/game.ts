@@ -88,7 +88,8 @@
         { id: "playerShot", src: "./Assets/Audio/PlayerShot.mp3" },
         { id: "enemyShot", src: "./Assets/Audio/PlasmaSound.wav" },
         { id: "lv2_Music", src: "./Assets/Audio/Level2Music.mp3" },
-        {id: "play_music", src:"./Assets/Audio/StarMusic.wav"} 
+        {id: "play_music", src:"./Assets/Audio/StarMusic.wav"},
+        { id: "lv2background", src: "./Assets/AsteroidBackground.png" },
        
     ];
 
@@ -167,6 +168,13 @@
             case config.Scene.LEVEL_INTERMISSION_ONE:
             stage.removeAllChildren();
             currentScene = new scenes.Intermission_One_Scene(assetManager);
+            stage.addChild(currentScene);
+            break;
+
+
+            case config.Scene.LEVEL_2:
+            stage.removeAllChildren();
+            currentScene = new scenes.AsteroidScene(assetManager);
             stage.addChild(currentScene);
             break;
         }
