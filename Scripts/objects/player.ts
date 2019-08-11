@@ -52,7 +52,7 @@ module objects {
           //}
 
           this.shootSFX = createjs.Sound.play("playerShot");
-          this.shootSFX.volume = 0.5;
+          this.shootSFX.volume = 0.2;
         }
       }
     }

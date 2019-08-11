@@ -55,8 +55,10 @@ module scenes {
 
             this.scoreBoard = new managers.ScoreBoard;
             managers.Game.scoreBoard = this.scoreBoard;
-            this.scoreBoard.Objective = "Score 3000 Points"
-
+            this.scoreBoard.Objective = "Score 4000 Points";
+            this.scoreBoard.Pause = "";
+          
+        
            
             
             this.backgroundMusic = createjs.Sound.play("play_music");
@@ -72,11 +74,20 @@ module scenes {
         }
 
         public Update(): void {
+
+
+            //pauses game if p is pressed
+            if (managers.Game.keyboardManager.pause != true) { 
+
             this.background.Update();
             this.player.Update();
             this.laserManager.Update();
             this.enemyLaserManager.Update();
            
+
+           
+
+          
 
            
 
@@ -189,7 +200,7 @@ module scenes {
 
 
           
-           // let ticker: number = createjs.Ticker.getTicks();
+           
 
         
             
@@ -210,16 +221,19 @@ module scenes {
 
 
             //If score limit met move to lv1 intermission screen
-            if (managers.Game.scoreBoard.Score >= 3000) {
-
-             
-
-              
+            if (managers.Game.scoreBoard.Score >= 4000 && this.player.isDead != true) {
 
                 createjs.Sound.stop();
                 managers.Game.currentScene = config.Scene.LEVEL_INTERMISSION_ONE;
               
             }
+
+        } //end of pause if
+
+       
+
+
+     
                 
         }
 
@@ -257,6 +271,7 @@ module scenes {
             this.addChild(this.scoreBoard.scoreLabel);
             this.addChild(this.scoreBoard.highScoreLabel);
             this.addChild(this.scoreBoard.objectiveLabel);
+            this.addChild(this.scoreBoard.pauseLabel);
         }
     }
 }

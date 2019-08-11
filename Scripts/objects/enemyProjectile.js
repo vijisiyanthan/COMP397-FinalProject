@@ -17,7 +17,7 @@ var objects;
         __extends(EnemyProjectile, _super);
         // Constructor
         function EnemyProjectile() {
-            var _this = _super.call(this, "plasma") || this;
+            var _this = _super.call(this, /*"plasma" */ "laser") || this;
             // Variables
             _this.speed = -10;
             _this.Start();

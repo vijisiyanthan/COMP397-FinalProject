@@ -4,10 +4,12 @@ module managers {
         public scoreLabel: objects.Label;
         public objectiveLabel: objects.Label;
         public highScoreLabel: objects.Label;
+        public pauseLabel: objects.Label;
 
         private score: number;
         private highScore: number;
         private objective: string;
+        private pauseText: string;
 
         get Score():number {
             return this.score;
@@ -31,6 +33,15 @@ module managers {
             this.objective = newObjective;
             this.objectiveLabel.text = "Objective: " + this.objective;
         }
+
+
+        get Pause(): string {
+            return this.pauseText;
+        }
+        set Pause(newText: string) {
+            this.pauseText = newText;
+            this.pauseLabel.text = newText;
+        }
         // Constructor
         constructor() {
             this.Init();
@@ -40,10 +51,12 @@ module managers {
             this.scoreLabel = new objects.Label("Score: 9999999", "25px", "Consolas", "#00B8B8", 10, 10, false);
             this.highScoreLabel = new objects.Label("High Score: ", "25px", "Consolas", "#00B8B8", 350, 10, false);
             this.objectiveLabel = new objects.Label("Objective: " + this.objective, "16px", "Consolas", "#00B8B8", 180, 580, false);
+            this.pauseLabel = new objects.Label("Paused:", "40px", "Consolas", "#9900B0", 200, 300, false);
 
             this.Score = 0;
             this.HighScore = 0;
             this.objective = " ";
+            this.Pause = " ";
         }
     }
 }

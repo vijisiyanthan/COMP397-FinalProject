@@ -11,6 +11,8 @@ module managers {
         // Constructor
         constructor() {
             this.enabled = true;
+            this.pause = false;
+
             // Listen for keyup and keydown events through DOM
             document.addEventListener("keydown", this.onKeyDown.bind(this), false);
             document.addEventListener("keyup", this.onKeyUp.bind(this), false);
@@ -38,6 +40,33 @@ module managers {
                     //console.log("pew pew");
                     this.shoot = true;
                 break;
+
+                case config.Keys.P:
+                  
+                    managers.Game.scoreBoard.Pause = "Paused";
+                    
+                    if(this.pause === false){
+
+                       
+                        
+                       
+                   this.pause = true;
+                       
+                
+                }
+
+
+
+                    else{
+                      
+
+                        managers.Game.scoreBoard.Pause = "";
+                       
+                        this.pause = false
+                       
+                    }
+
+                    break;
             }
         }
         public onKeyUp(event:KeyboardEvent):void {

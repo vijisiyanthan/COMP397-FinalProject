@@ -40,7 +40,7 @@ var managers;
                         break;
                     //Checking for player getting hit by enemy plasma
                     case "ChrisWestbrook":
-                        if (object1.name === "plasma") {
+                        if (object1.name === /*"plasma"*/ "laser") {
                             var explosion = new objects.Explosion(object2.x - object2.halfW, object2.y - object2.halfH);
                             managers.Game.currentSceneObject.addChild(explosion);
                             managers.Game.currentSceneObject.removeChild(object1);

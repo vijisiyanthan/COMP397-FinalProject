@@ -15,6 +15,7 @@ var config;
         Keys.D = 68;
         // Spacebar
         Keys.SPACE = 32;
+        Keys.P = 80;
         return Keys;
     }());
     config.Keys = Keys;

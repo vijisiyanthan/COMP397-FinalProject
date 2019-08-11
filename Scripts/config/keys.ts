@@ -12,5 +12,7 @@ module config {
         public static D: number = 68;
         // Spacebar
         public static SPACE: number = 32;
+
+        public static P: number = 80;
     }
 }

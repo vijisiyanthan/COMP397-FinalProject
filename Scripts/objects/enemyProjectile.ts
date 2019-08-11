@@ -5,7 +5,7 @@ module objects {
 
         // Constructor
         constructor() {
-            super("plasma");
+            super(/*"plasma" */"laser");
             this.Start();
         }
         // Methods

@@ -79,7 +79,8 @@ module scenes {
 
             this.scoreBoard = new managers.ScoreBoard;
             managers.Game.scoreBoard = this.scoreBoard;
-            this.scoreBoard.Objective = "Score 8000 Points"
+            this.scoreBoard.Objective = "Score 8000 Points";
+            this.scoreBoard.Pause = "";
 
 
             //Creating initial enemy counter count
@@ -94,6 +95,10 @@ module scenes {
         }
 
         public Update(): void {
+           
+            //pauses game if p is pressed
+            if (managers.Game.keyboardManager.pause != true) {
+           
             this.background.Update();
             this.player.Update();
             this.laserManager.Update();
@@ -321,6 +326,11 @@ module scenes {
 
 
 
+        }
+
+
+
+
         // Button event handlers
         public Main(): void {
             this.addChild(this.background);
@@ -358,6 +368,7 @@ module scenes {
             this.addChild(this.scoreBoard.scoreLabel);
             this.addChild(this.scoreBoard.highScoreLabel);
             this.addChild(this.scoreBoard.objectiveLabel);
+            this.addChild(this.scoreBoard.pauseLabel);
         }
     }
 }

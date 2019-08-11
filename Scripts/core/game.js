@@ -114,8 +114,11 @@
             console.log(managers.Game.currentScene);
             Main();
         }
+        //pauses game if p is pressed
+        //if (managers.Game.keyboardManager.pause != true) {
         currentScene.Update();
         stage.update();
+        //}
     }
     function Main() {
         // console.log("Game Start...");
