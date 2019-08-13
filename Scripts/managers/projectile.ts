@@ -3,18 +3,22 @@ module managers {
         // Variables
         private laserCount: number;
         private assetManager: createjs.LoadQueue;
+        private laserType: string;
 
         public Lasers: objects.Projectile[];
         public CurrentLaser: number;
         // Constructor
-        constructor() {
+        constructor(laserType: string) {
+            
+            this.laserType = laserType;
             this.Start();
+            
         }
         // Methods
         private buildLaserPool(): void {
             // Initialize a pool of laser assets
             for (let i = 0; i < this.laserCount; i++) {
-                this.Lasers[i] = new objects.Projectile();
+                this.Lasers[i] = new objects.Projectile(this.laserType);
             }
         }
 

@@ -91,6 +91,9 @@
         { id: "lv2_Music", src: "./Assets/Audio/Level2Music.mp3" },
         {id: "play_music", src:"./Assets/Audio/StarMusic.wav"},
         { id: "lv2background", src: "./Assets/AsteroidBackground.png" },
+        { id: "lv3background", src: "./Assets/EarthsOrbit.png" },
+        { id: "playAgainButton", src: "./Assets/RestartButton.png" },
+        { id: "victoryMusic", src: "./Assets/Audio/Victory.wav" }
        
     ];
 
@@ -194,6 +197,19 @@
             case config.Scene.LEVEL_INTERMISSION_TWO:
                 stage.removeAllChildren();
                 currentScene = new scenes.Intermission_Two_Scene(assetManager);
+                stage.addChild(currentScene);
+                break;
+
+            case config.Scene.LEVEL_3:
+                stage.removeAllChildren();
+                currentScene = new scenes.EarthsOrbitScene(assetManager);
+                stage.addChild(currentScene);
+                break;
+
+
+            case config.Scene.END:
+                stage.removeAllChildren();
+                currentScene = new scenes.End_Scene(assetManager);
                 stage.addChild(currentScene);
                 break;
         }

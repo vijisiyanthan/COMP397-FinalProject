@@ -39,6 +39,16 @@ module scenes {
                 this.backgroundMusic.volume = 0.3;
                 managers.Game.currentScene = config.Scene.LEVEL_2;
             }
+
+
+
+            else if (managers.Game.stageCheckpoint === 3) {
+
+                this.backgroundMusic = createjs.Sound.play("lv2_Music");
+                this.backgroundMusic.loop = -1; // Loop forever
+                this.backgroundMusic.volume = 0.3;
+                managers.Game.currentScene = config.Scene.LEVEL_3;
+            }
         }
 
         public Main():void {

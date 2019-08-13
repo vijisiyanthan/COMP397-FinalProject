@@ -14,7 +14,7 @@ module managers {
                 switch (object2.name) {
                     case "QualionFighter":
 
-                    if(object1.name != "plasma"){
+                        if (object1.name != "laser" && object1.name  != "eyebot"){
 
                         
                        
@@ -51,9 +51,9 @@ module managers {
                     } //end of if
                         break;
 
-                        //Checking for player getting hit by enemy plasma
+                        //Checking for player getting hit by enemy laser
                         case "ChrisWestbrook":
-                        if (object1.name === /*"plasma"*/ "laser") {
+                        if (object1.name === "laser") {
 
 
                             let explosion = new objects.Explosion(object2.x - object2.halfW, object2.y - object2.halfH);
@@ -65,7 +65,27 @@ module managers {
                             object1.Reset();
                         }
 
-                        break; //end of checking for enemy projectiles
+                        break;
+
+                        /*
+                       case "ChrisWestbrook":
+                        if (object1.name === "eyebot") {
+
+
+                            managers.Game.currentSceneObject.removeChild(object1);
+                          
+                            //Set player as powering up in game after returning true
+                            object1.Reset();
+                            managers.Game.playerPoweredUp = true;
+                            
+                          
+                        }
+
+
+
+                        break; //end of checking for powerUp 
+
+                        */
 
 
 
@@ -119,6 +139,45 @@ module managers {
                         } //end of asteroid switch statement
                         break;
                         
+
+                    case "eliteQualion":
+
+                        if (object1.name != "laser" && object1.name != "eyebot") {
+
+
+
+                            if (managers.Game.scoreBoard.HighScore <= managers.Game.scoreBoard.Score) {
+                                managers.Game.scoreBoard.HighScore = managers.Game.scoreBoard.Score;
+                                managers.Game.highscore = managers.Game.scoreBoard.HighScore;
+                            }
+                            let explosion = new objects.Explosion(object2.x - object2.halfW, object2.y - object2.halfH);
+                            managers.Game.currentSceneObject.addChild(explosion);
+                            managers.Game.currentSceneObject.removeChild(object1);
+                            managers.Game.currentSceneObject.removeChild(object2);
+
+                            if (object1.name === "ChrisWestbrook") {
+                                explosion.on("animationend", object1.Reset);
+                            }
+                            else {
+
+
+                                object1.Reset();
+
+                            }
+
+                            object2.Reset();
+
+                            if (managers.Game.scoreBoard.Score === 2050) {
+                                //Wait for explosion on final kill of level 1
+                                explosion.on("animationend", this.increaseScore);
+                            }
+
+                            else {
+                                this.increaseScore()
+                            }
+
+                        } //end of if
+                        break;
                 }
             }
         }

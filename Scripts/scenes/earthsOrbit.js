@@ -13,18 +13,18 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var PlayScene = /** @class */ (function (_super) {
-        __extends(PlayScene, _super);
+    var EarthsOrbitScene = /** @class */ (function (_super) {
+        __extends(EarthsOrbitScene, _super);
         // Constructor
-        function PlayScene(assetManager) {
+        function EarthsOrbitScene(assetManager) {
             var _this = _super.call(this, assetManager) || this;
             _this.Start();
             return _this;
         }
         // Methods
-        PlayScene.prototype.Start = function () {
+        EarthsOrbitScene.prototype.Start = function () {
             // Initialize your variables
-            this.background = new objects.Background(this.assetManager, "background");
+            this.background = new objects.Background(this.assetManager, "lv3background");
             this.player = new objects.Player();
             this.powerUpShot = new objects.Powerup();
             managers.Game.playerPoweredUp = false;
@@ -40,26 +40,27 @@ var scenes;
             this.enemies = new Array();
             this.enemyNum = 3; // Number of enemies I want
             for (var i = 0; i < this.enemyNum; i++) {
-                this.enemies[i] = new objects.Enemy();
+                this.enemies[i] = new objects.EliteEnemy();
             }
             this.enemies2 = new Array();
             this.enemyNum2 = 3; // Number of enemies I want
             for (var i = 0; i < this.enemyNum2; i++) {
-                this.enemies2[i] = new objects.Enemy();
+                this.enemies2[i] = new objects.EliteEnemy();
             }
             this.scoreBoard = new managers.ScoreBoard;
             managers.Game.scoreBoard = this.scoreBoard;
-            this.scoreBoard.Objective = "Score 4000 Points";
+            this.scoreBoard.Objective = "Score 5000 Points";
             this.scoreBoard.Pause = "";
+            /*
             this.backgroundMusic = createjs.Sound.play("play_music");
             this.backgroundMusic.loop = -1; // Loop forever
-            this.backgroundMusic.volume = 0.3;
+            this.backgroundMusic.volume = 0.3; */
             //initializing enemy counter
             this.enemyCounter = 0;
             this.enemyCounter2 = 0;
             this.Main();
         };
-        PlayScene.prototype.Update = function () {
+        EarthsOrbitScene.prototype.Update = function () {
             var _this = this;
             //pauses game if p is pressed
             if (managers.Game.keyboardManager.pause != true) {
@@ -87,7 +88,7 @@ var scenes;
                         _this.enemies = new Array();
                         _this.enemyNum = 3; // Number of enemies I want
                         for (var i = 0; i < _this.enemyNum; i++) {
-                            _this.enemies[i] = new objects.Enemy();
+                            _this.enemies[i] = new objects.EliteEnemy();
                         }
                         _this.enemies.forEach(function (enemy) {
                             _this.addChild(enemy);
@@ -111,7 +112,7 @@ var scenes;
                         _this.enemies2 = new Array();
                         _this.enemyNum2 = 3; // Number of enemies I want
                         for (var i = 0; i < _this.enemyNum2; i++) {
-                            _this.enemies2[i] = new objects.Enemy();
+                            _this.enemies2[i] = new objects.EliteEnemy();
                         }
                         _this.enemies2.forEach(function (enemy) {
                             _this.addChild(enemy);
@@ -162,15 +163,15 @@ var scenes;
                          this.addChild(enemy);
                      });
                  } */
-                //If score limit met move to lv1 intermission screen
-                if (managers.Game.scoreBoard.Score >= 4000 && this.player.isDead != true) {
+                //If score limit met move to end screen
+                if (managers.Game.scoreBoard.Score >= 5000 && this.player.isDead != true) {
                     createjs.Sound.stop();
-                    managers.Game.currentScene = config.Scene.LEVEL_INTERMISSION_ONE;
+                    managers.Game.currentScene = config.Scene.END;
                 }
             } //end of pause if
         };
         // Button event handlers
-        PlayScene.prototype.Main = function () {
+        EarthsOrbitScene.prototype.Main = function () {
             var _this = this;
             this.addChild(this.powerUpShot);
             this.addChild(this.background);
@@ -193,8 +194,8 @@ var scenes;
             this.addChild(this.scoreBoard.objectiveLabel);
             this.addChild(this.scoreBoard.pauseLabel);
         };
-        return PlayScene;
+        return EarthsOrbitScene;
     }(objects.Scene));
-    scenes.PlayScene = PlayScene;
+    scenes.EarthsOrbitScene = EarthsOrbitScene;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=play.js.map
+//# sourceMappingURL=earthsOrbit.js.map

@@ -19,6 +19,8 @@ var objects;
         function Player() {
             var _this = _super.call(this, "ChrisWestbrook") || this;
             _this.isDead = false;
+            _this.poweringUp = false;
+            _this.poweredUp = false;
             _this.Start();
             return _this;
         }
@@ -94,6 +96,13 @@ var objects;
             if (this.y < this.halfH) {
                 this.y = this.halfH;
             }
+        };
+        Player.prototype.PoweringUp = function () {
+            this.poweringUp = true;
+        };
+        Player.prototype.PoweredUp = function () {
+            this.poweredUp = true;
+            this.poweringUp = false;
         };
         return Player;
     }(objects.GameObject));

@@ -10,6 +10,7 @@ module managers {        // Access to globally-required items
         public static projectileManager: managers.Projectile;
         public static EnemyProjectileManager: managers.EnemyProjectile;
         public static currentSceneObject: objects.Scene;
+        public static playerPoweredUp: boolean = false;
        
        //Checks the stage you died on and is used by the game over screen button to return to that stage
         public static stageCheckpoint: number;

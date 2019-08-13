@@ -3,12 +3,15 @@ module objects {
     // Variables
     private laserSpawn: math.Vec2;
     private shootSFX: createjs.AbstractSoundInstance;
-
+    public poweringUp: boolean;
+    public poweredUp: boolean;
     public isDead: boolean;
     // Constructor
     constructor() {
       super("ChrisWestbrook");
       this.isDead = false;
+      this.poweringUp = false;
+      this.poweredUp = false;
       this.Start();
     }
     // Methods
@@ -105,6 +108,18 @@ module objects {
       if (this.y < this.halfH) {
         this.y = this.halfH;
       }
+    }
+
+    public PoweringUp(): void{
+
+      this.poweringUp = true;
+
+    }
+
+    public PoweredUp(): void{
+
+      this.poweredUp = true;
+      this.poweringUp = false;
     }
   }
 }

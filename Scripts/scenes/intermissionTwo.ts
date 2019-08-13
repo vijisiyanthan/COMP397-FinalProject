@@ -34,9 +34,9 @@ module scenes {
 
         private startButtonClick(): void {
             
-            //swap out for level 3 stuff
-            //managers.Game.stageCheckpoint = 2;
-           // managers.Game.currentScene = config.Scene.LEVEL_2;
+            
+            managers.Game.stageCheckpoint = 3;
+            managers.Game.currentScene = config.Scene.LEVEL_3;
         }
 
         public Main(): void {

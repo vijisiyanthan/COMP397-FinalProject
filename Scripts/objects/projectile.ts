@@ -4,8 +4,8 @@ module objects {
         private speed: number = -10;
 
         // Constructor
-        constructor() {
-            super("singleshot");
+        constructor(text: string) {
+            super(text);
             this.Start();
         }
         // Methods

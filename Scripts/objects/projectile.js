@@ -16,8 +16,8 @@ var objects;
     var Projectile = /** @class */ (function (_super) {
         __extends(Projectile, _super);
         // Constructor
-        function Projectile() {
-            var _this = _super.call(this, "singleshot") || this;
+        function Projectile(text) {
+            var _this = _super.call(this, text) || this;
             // Variables
             _this.speed = -10;
             _this.Start();

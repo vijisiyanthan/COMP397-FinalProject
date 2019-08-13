@@ -8,12 +8,12 @@ module scenes {
         private enemies2: objects.Enemy[];
         private enemyNum2: number;
         private scoreBoard:managers.ScoreBoard;
-        private bullet:objects.Projectile;
         private laserManager: managers.Projectile;
         private enemyLaserManager: managers.EnemyProjectile;
         private backgroundMusic: createjs.AbstractSoundInstance;
         private enemyCounter: number;
         private enemyCounter2: number;
+        private powerUpShot: objects.Powerup;
 
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
@@ -25,11 +25,14 @@ module scenes {
         public Start(): void {
             // Initialize your variables
             this.background = new objects.Background(this.assetManager, "background");
-            this.bullet = new objects.Projectile();
             this.player = new objects.Player();
 
+            this.powerUpShot = new objects.Powerup();
+            managers.Game.playerPoweredUp = false;
+
+
             //Player Lasers
-            this.laserManager = new managers.Projectile();
+            this.laserManager = new managers.Projectile("singleshot");
             this.laserManager.setLoadqueue(this.assetManager);
             
             //Enemy Lasers
@@ -76,6 +79,8 @@ module scenes {
         public Update(): void {
 
 
+           
+
             //pauses game if p is pressed
             if (managers.Game.keyboardManager.pause != true) { 
 
@@ -83,11 +88,14 @@ module scenes {
             this.player.Update();
             this.laserManager.Update();
             this.enemyLaserManager.Update();
-           
+            this.powerUpShot.Update();
 
            
+            //move power up if at half necessary points
+               // if (managers.Game.scoreBoard.Score >= 1500){
 
-          
+           
+               // }
 
            
 
@@ -199,6 +207,37 @@ module scenes {
             });
 
 
+                //Checking enemy Powerup Collision with the player
+
+                  managers.Collision.CheckAABB(this.powerUpShot, this.player);
+
+                if (managers.Game.playerPoweredUp === true){
+                    this.player.PoweringUp();
+                  }
+
+
+                  //Changing Laser and powering up player
+
+                  if(this.player.poweringUp){
+
+
+
+                    this.player.PoweredUp();
+                    
+
+                      this.laserManager = new managers.Projectile("QuadBlast");
+                      this.laserManager.setLoadqueue(this.assetManager);
+
+                      this.laserManager.Lasers.forEach(laser => {
+                          this.addChild(laser);
+                      });
+
+
+                  }
+
+            
+
+
           
            
 
@@ -242,6 +281,9 @@ module scenes {
 
         // Button event handlers
         public Main(): void {
+
+
+           this.addChild(this.powerUpShot);
             this.addChild(this.background);
             this.addChild(this.player);
            

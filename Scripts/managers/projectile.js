@@ -2,14 +2,15 @@ var managers;
 (function (managers) {
     var Projectile = /** @class */ (function () {
         // Constructor
-        function Projectile() {
+        function Projectile(laserType) {
+            this.laserType = laserType;
             this.Start();
         }
         // Methods
         Projectile.prototype.buildLaserPool = function () {
             // Initialize a pool of laser assets
             for (var i = 0; i < this.laserCount; i++) {
-                this.Lasers[i] = new objects.Projectile();
+                this.Lasers[i] = new objects.Projectile(this.laserType);
             }
         };
         Projectile.prototype.GetLaser = function () {

@@ -8,6 +8,8 @@ var config;
         Scene[Scene["LEVEL_INTERMISSION_ONE"] = 3] = "LEVEL_INTERMISSION_ONE";
         Scene[Scene["LEVEL_2"] = 4] = "LEVEL_2";
         Scene[Scene["LEVEL_INTERMISSION_TWO"] = 5] = "LEVEL_INTERMISSION_TWO";
+        Scene[Scene["LEVEL_3"] = 6] = "LEVEL_3";
+        Scene[Scene["END"] = 7] = "END";
     })(Scene = config.Scene || (config.Scene = {}));
 })(config || (config = {}));
 //# sourceMappingURL=scene.js.map

@@ -26,10 +26,9 @@ var scenes;
         AsteroidScene.prototype.Start = function () {
             // Initialize your variables
             this.background = new objects.Background(this.assetManager, "lv2background");
-            this.bullet = new objects.Projectile();
             this.player = new objects.Player();
             //Player Lasers
-            this.laserManager = new managers.Projectile();
+            this.laserManager = new managers.Projectile("singleshot");
             this.laserManager.setLoadqueue(this.assetManager);
             //Enemy Lasers
             this.enemyLaserManager = new managers.EnemyProjectile();

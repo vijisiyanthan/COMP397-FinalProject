@@ -1,5 +1,5 @@
 module objects {
-    export class Enemy extends objects.GameObject {
+    export class EliteEnemy extends objects.GameObject {
         // Variables
         erraticMovement: Number;
         boundryTouched: boolean;
@@ -8,22 +8,22 @@ module objects {
         private shootOrNot: number;
         private shootingSFX: createjs.AbstractSoundInstance;
         public alreadyCounted: boolean; //used by in game enemy counter variables for spawning purposes. 
-                                        //Ensures that they are not double counted;
+        //Ensures that they are not double counted;
 
         // Constructor
         constructor() {
-            super("QualionFighter");
-            this.Start(); 
+            super("eliteQualion");
+            this.Start();
             this.boundryTouched = true;
             this.alreadyCounted = false;
         }
         // Methods
-        public Start():void {
+        public Start(): void {
             this.x = Math.floor(Math.random() * 500) + 50;
             this.y = Math.floor(Math.random() * -500) + -50;
         }
-        
-        public Update():void {
+
+        public Update(): void {
 
             this.Move();
             this.CheckBounds();
@@ -36,11 +36,11 @@ module objects {
                 // I am alive. I can shoot lasers...maybe?
 
                 // Gets number of ticks ticker has issued
-               // let ticker: number = createjs.Ticker.getTicks();
+                // let ticker: number = createjs.Ticker.getTicks();
                 this.shootOrNot = Math.floor(Math.random() * 500) + 50;
 
                 // Constrain laser fire rate
-                if ( (this.shootOrNot % 200 == 0)) {
+                if ((this.shootOrNot % 75 == 0)) {
                     // Position our laser spawner
                     this.laserSpawn = new math.Vec2(this.x, this.y - this.halfH);
 
@@ -65,32 +65,32 @@ module objects {
             }
         }
 
-        
-        public Reset():void {
+
+        public Reset(): void {
 
             this.isDead = true;
             this.x = -1000;
             this.y = -1000;
 
-           
-        }
-       
-       
-        public Move():void {
-             
-            if(this.isDead === false){
-            this.y += 5;
-            
 
-            if(this.boundryTouched === false){
-            this.x -= 3;
         }
 
-        else if(this.boundryTouched === true){
-                this.x += 3;
-        }
-    
-    }
+
+        public Move(): void {
+
+            if (this.isDead === false) {
+                this.y += 6;
+
+
+                if (this.boundryTouched === false) {
+                    this.x -= 4;
+                }
+
+                else if (this.boundryTouched === true) {
+                    this.x += 4;
+                }
+
+            }
 
         }
 
@@ -110,7 +110,7 @@ module objects {
             }
 
             else if (this.erraticMovement === 2) {
-                this.x -= 10; 
+                this.x -= 10;
                 this.y -= 10;
             }
 
@@ -122,9 +122,9 @@ module objects {
         }
 
 
-        public CheckBounds():void {
+        public CheckBounds(): void {
             // Check the bottom boundary
-            if(this.y >= 600 + this.height) {
+            if (this.y >= 600 + this.height) {
                 //this.y = -50; default 
 
                 this.isDead = true;
@@ -142,15 +142,15 @@ module objects {
 
                 this.x = this.x + 50;
                 this.boundryTouched = true;
-            } 
+            }
         }
 
         //sets the enemy as counted for in game counters
-        public setAsCounted(): void{
+        public setAsCounted(): void {
 
             this.alreadyCounted = true;
         }
 
-      
+
     }
 }
